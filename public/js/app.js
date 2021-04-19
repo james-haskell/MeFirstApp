@@ -1941,6 +1941,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
@@ -37942,19 +37946,19 @@ var render = function() {
         _vm._l(_vm.posts, function(post) {
           return _c(
             "div",
-            { key: post.id, staticClass: "card media border px-2 my-4" },
+            { key: post.id, staticClass: "card border px-2 my-4" },
             [
               _c("img", { staticClass: "mr-3" }),
               _vm._v(" "),
-              _c("div", { staticClass: "media-body" }, [
-                _c("div", { staticClass: "mt-3" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "my-2" }, [
                   _c("a", { attrs: { href: post.user.profileLink } }, [
                     _vm._v(_vm._s(post.user.name))
                   ]),
                   _vm._v(
                     " | " + _vm._s(post.createdDate) + "\n                    "
                   ),
-                  _c("p", [_vm._v(_vm._s(post.body))])
+                  _c("p", { staticClass: "my-2" }, [_vm._v(_vm._s(post.body))])
                 ])
               ])
             ]
@@ -37996,8 +38000,13 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-3" }, [
-      _c("hr"),
-      _vm._v("\n    Sidebar\n")
+      _c("div", { staticClass: "d-flex flex-column align-items-center" }, [
+        _c("hr"),
+        _vm._v("\n        Sidebar\n        "),
+        _c("a", { attrs: { href: "/" } }, [_vm._v("Home")]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "/posts" } }, [_vm._v("Posts")])
+      ])
     ])
   }
 ]

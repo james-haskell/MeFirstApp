@@ -2,12 +2,12 @@
     <div class="my-4">
         <div class="">
             <p v-if="!posts.length">No Posts</p>
-            <div class="card media border px-2 my-4" v-for="post in posts" :key="post.id">
+            <div class="card border px-2 my-4" v-for="post in posts" :key="post.id">
                 <img class="mr-3">
-                <div class="media-body">
-                    <div class="mt-3">
+                <div class="card-body">
+                    <div class="my-2">
                         <a :href="post.user.profileLink">{{ post.user.name }}</a> | {{ post.createdDate }}
-                        <p>{{ post.body }}</p>
+                        <p class="my-2">{{ post.body }}</p>
                     </div>
                 </div>
             </div>
