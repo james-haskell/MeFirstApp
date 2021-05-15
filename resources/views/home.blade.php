@@ -16,10 +16,10 @@
         <!-- Timeline -->
         <home-timeline></home-timeline>
         
-        <!-- Friends List and Groups Sidebar -->
-        <friends-list 
+        <!-- Top Ten List and Groups Sidebar -->
+        <topten-list 
             :userid="{{ $userId }}">
-        </friends-list>
+        </topten-list>
 
         
     </div>

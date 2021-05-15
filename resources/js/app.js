@@ -9,7 +9,7 @@ window.Vue = require('vue').default;
 Vue.component('home-sidebar', require('./components/Home/Sidebar.vue').default);
 Vue.component('home-timeline', require('./components/Home/Timeline.vue').default);
 Vue.component('friends-posts', require('./components/Home/FriendsPosts.vue').default);
-Vue.component('friends-list', require('./components/Home/FriendsList.vue').default);
+Vue.component('topten-list', require('./components/Home/TopTenList.vue').default);
 
 //User Profile Components
 Vue.component('user-timeline', require('./components/User/UserTimeline.vue').default);
