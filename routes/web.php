@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 //Home Route
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 
 // Auth Routes
 Route::middleware(['auth'])->group(function () {

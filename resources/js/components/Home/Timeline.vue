@@ -31,16 +31,23 @@
 <script>
 import FriendsPosts from './FriendsPosts.vue';
 export default {
-  components: { FriendsPosts },
+
+    components: { 
+        FriendsPosts,
+    },
+
     data() {
         return {
             body: '',
             postData: {}
         }
     },
+
     methods: {
         savePost() {
-            axios.post('/posts/post', {body: this.body}).then(res => {
+            axios.post('/posts/post', {
+                body: this.body
+            }).then(res => {
                 this.postData = res.data;
                 Event.$emit('added_post', this.postData);
             }).catch(e => {
