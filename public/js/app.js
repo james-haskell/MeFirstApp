@@ -1866,17 +1866,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['userid'],
   data: function data() {
     return {
-      following: {},
-      errors: false
+      errors: false,
+      following: {}
     };
   },
   methods: {
-    loadFollowingList: function loadFollowingList() {
+    loadTopTenList: function loadTopTenList() {
       var _this = this;
 
-      axios.get('/api/following/1/all').then(function (res) {
+      axios.get('/api/following/' + this.userid + '/topTen').then(function (res) {
         _this.following = res.data;
       })["catch"](function (err) {
         _this.errors = true;
@@ -1885,7 +1886,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.loadFollowingList();
+    this.loadTopTenList();
   }
 });
 
@@ -37899,7 +37900,7 @@ var render = function() {
     _c("div", { staticClass: "container" }, [
       _c("hr"),
       _vm._v(" "),
-      _c("h3", [_vm._v("Following")]),
+      _c("h3", [_vm._v("My Top Ten")]),
       _vm._v(" "),
       !_vm.errors
         ? _c(
@@ -37914,7 +37915,7 @@ var render = function() {
             0
           )
         : _c("div", [
-            _vm._v("\n            Error loading following list.\n        ")
+            _vm._v("\n            Error loading Top Ten list.\n        ")
           ]),
       _vm._v(" "),
       _c("hr"),

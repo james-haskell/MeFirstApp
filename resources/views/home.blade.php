@@ -17,7 +17,9 @@
         <home-timeline></home-timeline>
         
         <!-- Friends List and Groups Sidebar -->
-        <friends-list></friends-list>
+        <friends-list 
+            :userid="{{ $userId }}">
+        </friends-list>
 
         
     </div>

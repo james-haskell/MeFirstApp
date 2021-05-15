@@ -45,6 +45,10 @@ class User extends Authenticatable
 
     protected $appends = ['profileLink'];
 
+    public function getUserId() {
+        return $this->id;
+    }
+
     public function getProfileLinkAttribute() {
         return route('user.show', $this);
     }

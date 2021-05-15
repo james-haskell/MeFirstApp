@@ -10,11 +10,14 @@ class Follows extends Model
 {
     use HasFactory;
 
-    public static function getAllFollowing($userId) {
+    // TODO: Create system to pick top 10 people following
+    public static function getTopTen($userId) {
         $followingIds = DB::table('follows')
             ->where('follower_id', $userId)
+            ->inRandomOrder()
+            ->limit(10)
             ->pluck('following_id');
-        //return $followingIds;
+        
         $followingData = [];
         for ($i=0; $i<count($followingIds); $i++) {
             $name = DB::table('users')
@@ -22,7 +25,9 @@ class Follows extends Model
                 ->pluck('name');
             $followingData[$i] = (object)[
                 'id' => $followingIds[$i],
-                'name' => $name[0]
+                'name' => $name[0],
+                'profilePic' => null,
+                'onlineStatus' => null,
             ];
         }
 

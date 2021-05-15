@@ -21,4 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('test', 'App\Http\Controllers\TestController@testGet');
 Route::post('test/{post}', 'App\Http\Controllers\TestController@testPost');
 
-Route::get('following/{userId}/all', 'App\Http\Controllers\FollowController@getAllFollowing');
+Route::get('following/{userId}/topTen', 'App\Http\Controllers\FollowController@getTopTen');

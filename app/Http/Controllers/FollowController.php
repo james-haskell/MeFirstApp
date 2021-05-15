@@ -10,7 +10,7 @@ class FollowController extends Controller
 {
     // Get data of users that are followed by current user
     // TODO: Update to get profile picture, online status
-    public function getAllFollowing($userId) {
-        return Follows::getAllFollowing($userId);
+    public function getTopTen($userId) {
+        return Follows::getTopTen($userId);
     }
 }

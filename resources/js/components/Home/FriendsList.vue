@@ -2,7 +2,7 @@
     <div class="col-md-3">
         <div class="container">
             <hr>
-            <h3>Following</h3>
+            <h3>My Top Ten</h3>
             <!-- Loop and display friends here -->
             <div v-if="!errors">
                 <div v-for="follow in following" :key="follow.id">
@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div v-else>
-                Error loading following list.
+                Error loading Top Ten list.
             </div>
             <hr>
             <h3>My Groups</h3>
@@ -20,16 +20,20 @@
 
 <script>
 export default {
+    props: [
+        'userid',
+    ],
+
     data() {
         return {
-            following: {},
             errors: false,
+            following: {},
         }
     },
 
     methods: {
-        loadFollowingList() {
-            axios.get('/api/following/1/all')
+        loadTopTenList() {
+            axios.get('/api/following/' + this.userid + '/topTen')
             .then(res => { 
                 this.following = res.data;
             }).catch(err => {
@@ -40,7 +44,7 @@ export default {
     },
 
     mounted() {
-        this.loadFollowingList();
+        this.loadTopTenList();
     }
 }
 </script>
