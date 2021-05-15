@@ -2,15 +2,16 @@
     <div class="col-md-3">
         <div class="container">
             <hr>
-            <h3>My Friends</h3>
+            <h3>Following</h3>
             <!-- Loop and display friends here -->
-            <ul>
-                <li style="list-style: none;">John Smith</li>
-                <li style="list-style: none;">Kelly Ayott</li>
-                <li style="list-style: none;">Jonathan Tumbleweed</li>
-                <li style="list-style: none;">Taylor Reede</li>
-                <li style="list-style: none;">Mike Hawk</li>
-            </ul>
+            <div v-if="!errors">
+                <div v-for="follow in following" :key="follow.id">
+                    <a :href="'/users/' + follow.id">{{ follow.name }}</a>
+                </div>
+            </div>
+            <div v-else>
+                Error loading following list.
+            </div>
             <hr>
             <h3>My Groups</h3>
         </div>
@@ -19,6 +20,27 @@
 
 <script>
 export default {
-    
+    data() {
+        return {
+            following: {},
+            errors: false,
+        }
+    },
+
+    methods: {
+        loadFollowingList() {
+            axios.get('/api/following/1/all')
+            .then(res => { 
+                this.following = res.data;
+            }).catch(err => {
+                this.errors = true;
+                console.log(err);
+            });
+        }
+    },
+
+    mounted() {
+        this.loadFollowingList();
+    }
 }
 </script>

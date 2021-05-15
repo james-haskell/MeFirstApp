@@ -1864,7 +1864,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      following: {},
+      errors: false
+    };
+  },
+  methods: {
+    loadFollowingList: function loadFollowingList() {
+      var _this = this;
+
+      axios.get('/api/following/1/all').then(function (res) {
+        _this.following = res.data;
+      })["catch"](function (err) {
+        _this.errors = true;
+        console.log(err);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.loadFollowingList();
+  }
+});
 
 /***/ }),
 
@@ -37872,48 +37895,35 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
-      _c("div", { staticClass: "container" }, [
-        _c("hr"),
-        _vm._v(" "),
-        _c("h3", [_vm._v("My Friends")]),
-        _vm._v(" "),
-        _c("ul", [
-          _c("li", { staticStyle: { "list-style": "none" } }, [
-            _vm._v("John Smith")
+  return _c("div", { staticClass: "col-md-3" }, [
+    _c("div", { staticClass: "container" }, [
+      _c("hr"),
+      _vm._v(" "),
+      _c("h3", [_vm._v("Following")]),
+      _vm._v(" "),
+      !_vm.errors
+        ? _c(
+            "div",
+            _vm._l(_vm.following, function(follow) {
+              return _c("div", { key: follow.id }, [
+                _c("a", { attrs: { href: "/users/" + follow.id } }, [
+                  _vm._v(_vm._s(follow.name))
+                ])
+              ])
+            }),
+            0
+          )
+        : _c("div", [
+            _vm._v("\n            Error loading following list.\n        ")
           ]),
-          _vm._v(" "),
-          _c("li", { staticStyle: { "list-style": "none" } }, [
-            _vm._v("Kelly Ayott")
-          ]),
-          _vm._v(" "),
-          _c("li", { staticStyle: { "list-style": "none" } }, [
-            _vm._v("Jonathan Tumbleweed")
-          ]),
-          _vm._v(" "),
-          _c("li", { staticStyle: { "list-style": "none" } }, [
-            _vm._v("Taylor Reede")
-          ]),
-          _vm._v(" "),
-          _c("li", { staticStyle: { "list-style": "none" } }, [
-            _vm._v("Mike Hawk")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("h3", [_vm._v("My Groups")])
-      ])
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c("h3", [_vm._v("My Groups")])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
