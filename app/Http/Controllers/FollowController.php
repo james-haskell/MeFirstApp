@@ -22,6 +22,12 @@ class FollowController extends Controller
         return FollowServiceProvider::getTopTen($userId);
     }
 
+    public function showFollowers($userId) {
+        return view('followers', [
+            'userId' => $userId
+        ]);
+    }
+
     public function showFollowing($userId) {
         return view('following', [
             'userId' => $userId

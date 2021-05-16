@@ -1,10 +1,13 @@
 <template>
     <div class="col-md-3">
         <div class="container">
-            <div v-if="!errors">
+            <div v-if="!errors && !isEmpty">
                     <div v-for="follow in following" :key="follow.id">
                         <a :href="'/users/' + follow.id">{{ follow.name }}</a>
                     </div>
+                </div>
+                <div v-else-if="!errors && isEmpty">
+                    Not following anyone.
                 </div>
                 <div v-else>
                     Error loading following list.
@@ -23,6 +26,7 @@ export default {
         return {
             errors: false,
             following: {},
+            isEmpty: false,
         }
     },
 
@@ -31,7 +35,10 @@ export default {
             axios.get('/api/following/' + this.userid + '/all')
             .then(res => { 
                 this.following = res.data;
-                console.log(this.following);
+            }).finally(() => {
+                if (this.following.length == 0) {
+                    this.isEmpty = true;
+                }
             }).catch(err => {
                 this.errors = true;
                 console.log(err);

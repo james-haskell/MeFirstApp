@@ -11,7 +11,9 @@
     <div class="row justify-content-center">
 
         <!-- Nav Sidebar -->
-        <home-sidebar></home-sidebar>
+        <home-sidebar
+            :userid="{{ $userId }}">
+        </home-sidebar>
 
         <!-- Timeline -->
         <home-timeline></home-timeline>
