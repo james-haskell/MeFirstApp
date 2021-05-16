@@ -12,9 +12,13 @@ Route::middleware(['auth'])->group(function () {
     // User Profile Routes
     Route::get('users/{user}', 'App\Http\Controllers\UserController@show')->name('user.show');
 
-    // Follow Routes
+    // Follow Routes -> TODO: these should be api routes since they just send and change data
     Route::get('users/{user}/follow', 'App\Http\Controllers\UserController@follow')->name('user.follow');
     Route::get('users/{user}/unfollow', 'App\Http\Controllers\UserController@unFollow')->name('user.unfollow');
+
+    // Follower Routes
+
+    // Following Routes
     Route::get('following/{userId}/all', 'App\Http\Controllers\FollowController@showFollowing')->name('following.all');
 
     // Post Routes

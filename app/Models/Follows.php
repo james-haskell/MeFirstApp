@@ -10,6 +10,14 @@ class Follows extends Model
 {
     use HasFactory;
 
+    public static function getAllFollowerIds($userId) {
+        $followerIds = DB::table('follows')
+            ->where('following_id', $userId)
+            ->pluck('follower_id');
+
+        return $followerIds;
+    }
+
     // TODO: Add more data to all following page
     public static function getAllFollowingIds($userId) {
         $followingIds = DB::table('follows')
@@ -21,13 +29,13 @@ class Follows extends Model
 
     // TODO: Create system to pick top 10 people following
     public static function getTopTenIds($userId) {
-        $followingIds = DB::table('follows')
+        $topTenIds = DB::table('follows')
             ->where('follower_id', $userId)
             ->inRandomOrder()
             ->limit(10)
             ->pluck('following_id');
         
-        return $followingIds;
+        return $topTenIds;
     }
 
     public function user() {

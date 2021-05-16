@@ -14,13 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// TODO: setup auth and middleware functionalities
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('test', 'App\Http\Controllers\TestController@testGet');
-Route::post('test/{post}', 'App\Http\Controllers\TestController@testPost');
+// Follower Routes
+Route::get('followers/{userId}/all', 'App\Http\Controllers\FollowController@getAllFollowers');
 
-Route::get('following/{userId}/all', 'App\Http\Controllers\FollowController@getAll');
+// Following Routes
+Route::get('following/{userId}/all', 'App\Http\Controllers\FollowController@getAllFollowing');
 Route::get('following/{userId}/topTen', 'App\Http\Controllers\FollowController@getTopTen');
 

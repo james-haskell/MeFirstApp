@@ -8,8 +8,12 @@ use App\Providers\FollowServiceProvider;
 
 class FollowController extends Controller
 {
-    public function getAll($userId) {
-        return FollowServiceProvider::getAll($userId);
+    public function getAllFollowers($userId) {
+        return FollowServiceProvider::getAllFollowers($userId);
+    }
+
+    public function getAllFollowing($userId) {
+        return FollowServiceProvider::getAllFollowing($userId);
     }
 
     // Get data of users that are followed by current user
