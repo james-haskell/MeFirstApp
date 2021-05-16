@@ -11,6 +11,8 @@ Vue.component('home-timeline', require('./components/Home/Timeline.vue').default
 Vue.component('friends-posts', require('./components/Home/FriendsPosts.vue').default);
 Vue.component('topten-list', require('./components/Home/TopTenList.vue').default);
 
+Vue.component('following-page', require('./components/Following/FollowingPage.vue').default);
+
 //User Profile Components
 Vue.component('user-timeline', require('./components/User/UserTimeline.vue').default);
 

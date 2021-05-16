@@ -15,6 +15,7 @@ Route::middleware(['auth'])->group(function () {
     // Follow Routes
     Route::get('users/{user}/follow', 'App\Http\Controllers\UserController@follow')->name('user.follow');
     Route::get('users/{user}/unfollow', 'App\Http\Controllers\UserController@unFollow')->name('user.unfollow');
+    Route::get('following/{userId}/all', 'App\Http\Controllers\FollowController@showFollowing')->name('following.all');
 
     // Post Routes
     Route::get('posts', 'App\Http\Controllers\PostController@index')->name('posts.index');

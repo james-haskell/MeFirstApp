@@ -8,6 +8,7 @@
                 <div v-for="follow in following" :key="follow.id">
                     <a :href="'/users/' + follow.id">{{ follow.name }}</a>
                 </div>
+                <a :href="'/following/' + this.userid + '/all'">See everyone you follow...</a>
             </div>
             <div v-else>
                 Error loading Top Ten list.
@@ -40,7 +41,7 @@ export default {
                 this.errors = true;
                 console.log(err);
             });
-        }
+        },
     },
 
     mounted() {

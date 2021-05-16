@@ -10,28 +10,24 @@ class Follows extends Model
 {
     use HasFactory;
 
+    // TODO: Add more data to all following page
+    public static function getAllFollowingIds($userId) {
+        $followingIds = DB::table('follows')
+            ->where('follower_id', $userId)
+            ->pluck('following_id');
+
+        return $followingIds;
+    }
+
     // TODO: Create system to pick top 10 people following
-    public static function getTopTen($userId) {
+    public static function getTopTenIds($userId) {
         $followingIds = DB::table('follows')
             ->where('follower_id', $userId)
             ->inRandomOrder()
             ->limit(10)
             ->pluck('following_id');
         
-        $followingData = [];
-        for ($i=0; $i<count($followingIds); $i++) {
-            $name = DB::table('users')
-                ->where('id', $followingIds[$i])
-                ->pluck('name');
-            $followingData[$i] = (object)[
-                'id' => $followingIds[$i],
-                'name' => $name[0],
-                'profilePic' => null,
-                'onlineStatus' => null,
-            ];
-        }
-
-        return $followingData;
+        return $followingIds;
     }
 
     public function user() {
