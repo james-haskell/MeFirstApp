@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\MyGroup;
 
 class User extends Authenticatable
 {
@@ -45,6 +46,10 @@ class User extends Authenticatable
 
     protected $appends = ['profileLink'];
 
+    public function getUserId() {
+        return $this->id;
+    }
+
     public function getProfileLinkAttribute() {
         return route('user.show', $this);
     }
@@ -55,7 +60,7 @@ class User extends Authenticatable
 
     // Following validations for users
     public function following() {
-        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
     }
 
     public function isNot($user) {

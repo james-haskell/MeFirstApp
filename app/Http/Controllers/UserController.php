@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-
-
     public function getRouteKeyName() {
         return 'name';
     }
