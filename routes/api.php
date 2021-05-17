@@ -27,3 +27,6 @@ Route::get('followers/{userId}/all', 'App\Http\Controllers\FollowController@getA
 Route::get('following/{userId}/all', 'App\Http\Controllers\FollowController@getAllFollowing');
 Route::get('following/{userId}/topTen', 'App\Http\Controllers\FollowController@getTopTen');
 
+// Group Routes
+Route::get('groups/{user}/add', 'App\Http\Controllers\GroupController@add');
+

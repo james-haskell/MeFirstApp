@@ -17,7 +17,7 @@
                 Error loading Top Ten list.
             </div>
             <hr>
-            <h3>My Groups</h3>
+            <h3>My Groups</h3> <a :href="'/groups/' + this.userid + '/add'"> Add Group</a>
         </div>
     </div>
 </template>

@@ -14,6 +14,8 @@ Vue.component('topten-list', require('./components/Home/TopTenList.vue').default
 Vue.component('followers-page', require('./components/Follows/FollowersPage.vue').default);
 Vue.component('following-page', require('./components/Follows/FollowingPage.vue').default);
 
+Vue.component('add-group-form', require('./components/Groups/AddGroupForm.vue').default);
+
 //User Profile Components
 Vue.component('user-timeline', require('./components/User/UserTimeline.vue').default);
 
