@@ -13,19 +13,26 @@ class MyGroup extends Model
 
     protected $fillable = [
         'groupName',
-        'owner_id'
+        'owner_id',
+        'member_ids'
     ];
 
     public static function add(Request $request, User $user) {
         $groupName = $request->groupName;
+
         $groupData = [
             'groupName' => $groupName,
-            'owner_id' => $user->id
+            'owner_id' => $user->id,
+            'member_ids' => $user->id
         ];
         Self::create($groupData);
         
         return response()->json([
             'success' => true
         ]);
+    }
+
+    public function join() {
+
     }
 }

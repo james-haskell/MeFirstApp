@@ -2203,6 +2203,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userid'],
   data: function data() {
@@ -38694,6 +38696,10 @@ var render = function() {
       _vm._v(" "),
       _c("a", { attrs: { href: "/groups/" + this.userid + "/add" } }, [
         _vm._v(" Add Group")
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "/groups/" + this.userid + "/add" } }, [
+        _vm._v(" Look for Group")
       ])
     ])
   ])
