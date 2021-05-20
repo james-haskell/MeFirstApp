@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Providers\GroupServiceProvider;
+use App\Providers\UserServiceProvider;
 use App\Models\MyGroup;
 use App\Models\User;
 
@@ -16,8 +18,25 @@ class GroupController extends Controller
         }
     }
 
+    public function getGroupDataById(Request $request) {
+        $groupId = $request->groupId;
+        return GroupServiceProvider::getGroupDataById($groupId);
+    }
+
+    public function joinGroup($groupId, $userId) {
+        return GroupServiceProvider::joinGroup($groupId, $userId);
+    }
+
     public function showAddForm($userId) {
         return view('add-group', [
+            'userId' => $userId
+        ]);
+    }
+
+    public function showGroupPage(Request $request, $groupId) {
+        $userId = UserServiceProvider::getUserId($request);
+        return view('groups.group', [
+            'groupId' => $groupId,
             'userId' => $userId
         ]);
     }

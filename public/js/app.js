@@ -1988,6 +1988,71 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Groups/GroupPage.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Groups/GroupPage.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['groupId', 'userId'],
+  data: function data() {
+    return {
+      errors: false,
+      groupData: {},
+      groupMembers: []
+    };
+  },
+  methods: {
+    getGroupData: function getGroupData() {
+      var _this = this;
+
+      axios.get('/api/groups/lfg?groupId=' + this.groupId).then(function (res) {
+        if (!res.data.error) {
+          _this.groupData = res.data;
+          _this.groupMembers = res.data.member_ids;
+        } else {
+          _this.errors = true;
+        }
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    joinGroup: function joinGroup() {
+      axios.get('/api/groups/' + this.groupData.id + '/join/' + this.userId)["finally"](function () {
+        window.location.reload();
+      })["catch"](function (err) {
+        //TODO: add notification alert that user is already joined
+        console.log(err);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getGroupData();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Home/FriendsPosts.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Home/FriendsPosts.vue?vue&type=script&lang=js& ***!
@@ -2205,12 +2270,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userid'],
   data: function data() {
     return {
       errors: false,
       following: {},
+      groupId: "",
       isEmpty: false
     };
   },
@@ -2275,7 +2348,8 @@ Vue.component('friends-posts', __webpack_require__(/*! ./components/Home/Friends
 Vue.component('topten-list', __webpack_require__(/*! ./components/Home/TopTenList.vue */ "./resources/js/components/Home/TopTenList.vue").default);
 Vue.component('followers-page', __webpack_require__(/*! ./components/Follows/FollowersPage.vue */ "./resources/js/components/Follows/FollowersPage.vue").default);
 Vue.component('following-page', __webpack_require__(/*! ./components/Follows/FollowingPage.vue */ "./resources/js/components/Follows/FollowingPage.vue").default);
-Vue.component('add-group-form', __webpack_require__(/*! ./components/Groups/AddGroupForm.vue */ "./resources/js/components/Groups/AddGroupForm.vue").default); //User Profile Components
+Vue.component('add-group-form', __webpack_require__(/*! ./components/Groups/AddGroupForm.vue */ "./resources/js/components/Groups/AddGroupForm.vue").default);
+Vue.component('group-page', __webpack_require__(/*! ./components/Groups/GroupPage.vue */ "./resources/js/components/Groups/GroupPage.vue").default); //User Profile Components
 
 Vue.component('user-timeline', __webpack_require__(/*! ./components/User/UserTimeline.vue */ "./resources/js/components/User/UserTimeline.vue").default); // Vue Events
 
@@ -37832,6 +37906,45 @@ component.options.__file = "resources/js/components/Groups/AddGroupForm.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Groups/GroupPage.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/Groups/GroupPage.vue ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _GroupPage_vue_vue_type_template_id_f77e6804___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GroupPage.vue?vue&type=template&id=f77e6804& */ "./resources/js/components/Groups/GroupPage.vue?vue&type=template&id=f77e6804&");
+/* harmony import */ var _GroupPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GroupPage.vue?vue&type=script&lang=js& */ "./resources/js/components/Groups/GroupPage.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _GroupPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _GroupPage_vue_vue_type_template_id_f77e6804___WEBPACK_IMPORTED_MODULE_0__.render,
+  _GroupPage_vue_vue_type_template_id_f77e6804___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Groups/GroupPage.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Home/FriendsPosts.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/components/Home/FriendsPosts.vue ***!
@@ -38075,6 +38188,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Groups/GroupPage.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/Groups/GroupPage.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./GroupPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Groups/GroupPage.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Home/FriendsPosts.vue?vue&type=script&lang=js&":
 /*!********************************************************************************!*\
   !*** ./resources/js/components/Home/FriendsPosts.vue?vue&type=script&lang=js& ***!
@@ -38202,6 +38331,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddGroupForm_vue_vue_type_template_id_39e82fbc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddGroupForm_vue_vue_type_template_id_39e82fbc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddGroupForm.vue?vue&type=template&id=39e82fbc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Groups/AddGroupForm.vue?vue&type=template&id=39e82fbc&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Groups/GroupPage.vue?vue&type=template&id=f77e6804&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/Groups/GroupPage.vue?vue&type=template&id=f77e6804& ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupPage_vue_vue_type_template_id_f77e6804___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupPage_vue_vue_type_template_id_f77e6804___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupPage_vue_vue_type_template_id_f77e6804___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./GroupPage.vue?vue&type=template&id=f77e6804& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Groups/GroupPage.vue?vue&type=template&id=f77e6804&");
 
 
 /***/ }),
@@ -38426,6 +38572,58 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Groups/GroupPage.vue?vue&type=template&id=f77e6804&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Groups/GroupPage.vue?vue&type=template&id=f77e6804& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return !_vm.errors
+    ? _c("div", [
+        _vm._v(
+          "\n    Group ID: " +
+            _vm._s(_vm.groupData.id) +
+            "\n    Group Name: " +
+            _vm._s(_vm.groupData.groupName) +
+            "\n    Group Owner: " +
+            _vm._s(_vm.groupData.owner_id) +
+            "\n    Group Members: " +
+            _vm._s(_vm.groupMembers) +
+            "\n\n    "
+        ),
+        _c(
+          "button",
+          {
+            on: {
+              click: function($event) {
+                return _vm.joinGroup()
+              }
+            }
+          },
+          [_vm._v("Join Group")]
+        )
+      ])
+    : _c("div", [
+        _vm._v("\n    No group exists with ID of " + _vm._s(_vm.groupId) + "\n")
+      ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -38695,11 +38893,32 @@ var render = function() {
       _c("h3", [_vm._v("My Groups")]),
       _vm._v(" "),
       _c("a", { attrs: { href: "/groups/" + this.userid + "/add" } }, [
-        _vm._v(" Add Group")
+        _vm._v("Add Group")
       ]),
       _vm._v(" "),
-      _c("a", { attrs: { href: "/groups/" + this.userid + "/add" } }, [
-        _vm._v(" Look for Group")
+      _c("form", { attrs: { action: "/groups/" + this.groupId } }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.groupId,
+              expression: "groupId"
+            }
+          ],
+          attrs: { type: "text", name: "groupId", placeholder: "Group ID" },
+          domProps: { value: _vm.groupId },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.groupId = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("button", { attrs: { type: "submit" } }, [_vm._v("Look for Group")])
       ])
     ])
   ])

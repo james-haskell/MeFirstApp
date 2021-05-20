@@ -31,4 +31,8 @@ class UserServiceProvider extends ServiceProvider
     public static function getUserId(Request $request) {
         return $request->user()->getUserId();
     }
+
+    public static function getUserDataById($userId) {
+        return User::getUserDataById($userId);
+    }
 }

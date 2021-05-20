@@ -1,4 +1,4 @@
-<?php
+cd C:/<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,7 +14,7 @@ class CreateMyGroupsTable extends Migration
     public function up()
     {
         Schema::create('my_groups', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('groupName');
             $table->unsignedBigInteger('owner_id');
             $table->string('member_ids');

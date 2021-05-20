@@ -18,8 +18,15 @@
             </div>
             <hr>
             <h3>My Groups</h3> 
-            <a :href="'/groups/' + this.userid + '/add'"> Add Group</a>
-            <a :href="'/groups/' + this.userid + '/add'"> Look for Group</a>
+            <a :href="'/groups/' + this.userid + '/add'">Add Group</a>
+            <form :action="'/groups/' + this.groupId">
+                <input 
+                    type="text"
+                    name="groupId"
+                    v-model="groupId"
+                    placeholder="Group ID">
+                    <button type="submit">Look for Group</button>
+            </form>
         </div>
     </div>
 </template>
@@ -34,6 +41,7 @@ export default {
         return {
             errors: false,
             following: {},
+            groupId: "",
             isEmpty: false,
         }
     },
