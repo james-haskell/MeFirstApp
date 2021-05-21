@@ -31,7 +31,7 @@
             @else
             <div class="d-flex flex-row justify-items-center">
                 <div class="col-md-2">
-                    @include('layouts.inc.sidebar')
+                    @include('layouts.inc.sidebar', ['userId' => Auth::user()->id])
                 </div>
 
                 <div class="col-md-6">
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="col-md-3">
-                    @include('layouts.inc.topten')
+                    @include('layouts.inc.topten', ['userId' => Auth::user()->id])
                 </div>
             </div>
             @endif

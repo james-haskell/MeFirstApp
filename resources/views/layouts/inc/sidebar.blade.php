@@ -1,3 +1,3 @@
 <home-sidebar
-    :user-id="{{ $userId }}">
+    :userid="{{ $userId }}">
 </home-sidebar>
