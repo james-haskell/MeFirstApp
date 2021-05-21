@@ -18,6 +18,7 @@ class CreateMyGroupsTable extends Migration
             $table->string('groupName');
             $table->unsignedBigInteger('owner_id');
             $table->string('member_ids');
+            $table->string('member_names');
             $table->timestamps();
 
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');

@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Request;
 use App\Models\MyGroup;
+use App\Models\User;
 
 class GroupServiceProvider extends ServiceProvider
 {
@@ -43,27 +44,42 @@ class GroupServiceProvider extends ServiceProvider
 
     public static function joinGroup($groupId, $userId) {
         $memberIds = MyGroup::getGroupMemberIds($groupId)[0]->member_ids;
+        $memberNames = MyGroup::getGroupMemberNames($groupId)[0]->member_names;
+        $newName = User::where('id', $userId)
+            ->pluck('name');
         $isJoined = in_array($userId, $memberIds);
+
         if (!$isJoined) {
             array_push($memberIds, (int) $userId);
+            array_push($memberNames, $newName[0]);
 
-            MyGroup::find($groupId)->update(['member_ids' => $memberIds]);
-            return $memberIds;
+            MyGroup::find($groupId)->update([
+                'member_ids' => $memberIds,
+                'member_names' => $memberNames
+            ]);
+            return $memberNames;
         }
         //TODO: Add error handling
     }
 
     public static function leaveGroup($groupId, $userId) {
         $memberIds = MyGroup::getGroupMemberIds($groupId)[0]->member_ids;
+        $memberNames = MyGroup::getGroupMemberNames($groupId)[0]->member_names;
         $isJoined = in_array($userId, $memberIds);
+
         if ($isJoined) {
             //Remove user's id from members array
             $index = array_search($userId, $memberIds);
             unset($memberIds[$index]);
+            unset($memberNames[$index]);
             $memberIds = array_values($memberIds);
+            $memberNames = array_values($memberNames);
             
-            MyGroup::find($groupId)->update(['member_ids' => $memberIds]);
-            return $memberIds;
+            MyGroup::find($groupId)->update([
+                'member_ids' => $memberIds,
+                'member_names' => $memberNames
+            ]);
+            return $memberNames;
         }
         //TODO: Add error handling
     }

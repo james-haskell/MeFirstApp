@@ -3,7 +3,9 @@
         Group ID: {{ groupData.id }}
         Group Name: {{ groupData.groupName }}
         Group Owner: {{ groupData.owner_id }}
-        Group Members: {{ groupMembers }}
+        <div v-for="member in groupMembers" :key="member.name">
+            {{ member.name }}
+        </div>
 
         <button @click="joinGroup()">Join Group</button>
         <button @click="leaveGroup()">Leave Group</button>
@@ -34,13 +36,21 @@ export default {
             ).then(res => {
                 if (!res.data.error) {
                     this.groupData = res.data;
-                    this.groupMembers = res.data.member_ids;
+                    this.getMemberNames();
                 } else {
                     this.errors = true;
                 }
             }).catch(err => {
                 console.log(err);
             })
+        },
+
+        getMemberNames() {
+            for (let i = 0; i < this.groupData.member_ids.length; i++) {
+                this.groupMembers.push({
+                    name: this.groupData.member_names[i]
+                });
+            }
         },
 
         joinGroup() {

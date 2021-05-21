@@ -15,11 +15,13 @@ class MyGroup extends Model
     protected $fillable = [
         'groupName',
         'owner_id',
-        'member_ids'
+        'member_ids',
+        'member_names'
     ];
 
     protected $casts = [
-        'member_ids' => 'array'
+        'member_ids' => 'array',
+        'member_names' => 'array'
     ];
 
     public static function add(Request $request, User $user) {
@@ -28,7 +30,8 @@ class MyGroup extends Model
         $groupData = [
             'groupName' => $groupName,
             'owner_id' => $user->id,
-            'member_ids' => [$user->id]
+            'member_ids' => [$user->id],
+            'member_names' => [$user->name]
         ];
         Self::create($groupData);
         
@@ -48,6 +51,13 @@ class MyGroup extends Model
         $memberIds = MyGroup::where('id', $groupId)
             ->get('member_ids');
         
-            return $memberIds;
+        return $memberIds;
+    }
+
+    public static function getGroupMemberNames($groupId) {
+        $memberNames = MyGroup::where('id', $groupId)
+            ->get('member_names');
+        
+        return $memberNames;
     }
 }

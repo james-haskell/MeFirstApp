@@ -2014,6 +2014,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['groupId', 'userId'],
   data: function data() {
@@ -2030,13 +2032,21 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/api/groups/lfg?groupId=' + this.groupId).then(function (res) {
         if (!res.data.error) {
           _this.groupData = res.data;
-          _this.groupMembers = res.data.member_ids;
+
+          _this.getMemberNames();
         } else {
           _this.errors = true;
         }
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+    getMemberNames: function getMemberNames() {
+      for (var i = 0; i < this.groupData.member_ids.length; i++) {
+        this.groupMembers.push({
+          name: this.groupData.member_names[i]
+        });
+      }
     },
     joinGroup: function joinGroup() {
       axios.get('/api/groups/' + this.groupData.id + '/join/' + this.userId)["finally"](function () {
@@ -38603,42 +38613,50 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return !_vm.errors
-    ? _c("div", [
-        _vm._v(
-          "\n    Group ID: " +
-            _vm._s(_vm.groupData.id) +
-            "\n    Group Name: " +
-            _vm._s(_vm.groupData.groupName) +
-            "\n    Group Owner: " +
-            _vm._s(_vm.groupData.owner_id) +
-            "\n    Group Members: " +
-            _vm._s(_vm.groupMembers) +
-            "\n\n    "
-        ),
-        _c(
-          "button",
-          {
-            on: {
-              click: function($event) {
-                return _vm.joinGroup()
+    ? _c(
+        "div",
+        [
+          _vm._v(
+            "\n    Group ID: " +
+              _vm._s(_vm.groupData.id) +
+              "\n    Group Name: " +
+              _vm._s(_vm.groupData.groupName) +
+              "\n    Group Owner: " +
+              _vm._s(_vm.groupData.owner_id) +
+              "\n    "
+          ),
+          _vm._l(_vm.groupMembers, function(member) {
+            return _c("div", { key: member.name }, [
+              _vm._v("\n        " + _vm._s(member.name) + "\n    ")
+            ])
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.joinGroup()
+                }
               }
-            }
-          },
-          [_vm._v("Join Group")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            on: {
-              click: function($event) {
-                return _vm.leaveGroup()
+            },
+            [_vm._v("Join Group")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.leaveGroup()
+                }
               }
-            }
-          },
-          [_vm._v("Leave Group")]
-        )
-      ])
+            },
+            [_vm._v("Leave Group")]
+          )
+        ],
+        2
+      )
     : _c("div", [
         _vm._v("\n    No group exists with ID of " + _vm._s(_vm.groupId) + "\n")
       ])
