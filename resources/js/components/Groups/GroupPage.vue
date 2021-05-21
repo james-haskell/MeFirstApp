@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!errors">
+    <div v-if="isEmpty(errors)">
         Group ID: {{ groupData.id }}
         Group Name: {{ groupData.groupName }}
         Group Owner: {{ groupData.owner_id }}
@@ -9,9 +9,12 @@
 
         <button @click="joinGroup()">Join Group</button>
         <button @click="leaveGroup()">Leave Group</button>
+        <div v-if="!isEmpty(errorNotification)">
+            <p>{{ errorNotification.message }}</p>
+        </div>
     </div>
     <div v-else>
-        No group exists with ID of {{ groupId }}
+        {{ errors }}
     </div>
 </template>
 
@@ -24,10 +27,21 @@ export default {
     
     data() {
         return {
-            errors: false,
+            errors: {},
+            errorNotification: {
+                message: '',
+            },
             groupData: {},
             groupMembers: [],
         }
+    },
+
+    created() {
+        this.getGroupData();
+    },
+
+    mounted() {
+        
     },
 
     methods: {
@@ -38,7 +52,7 @@ export default {
                     this.groupData = res.data;
                     this.getMemberNames();
                 } else {
-                    this.errors = true;
+                    this.errors = res.data.error;
                 }
             }).catch(err => {
                 console.log(err);
@@ -54,6 +68,10 @@ export default {
             }
         },
 
+        isEmpty(obj) {
+            return Object.keys(obj).length === 0;
+        },
+
         joinGroup() {
             axios.put('/api/groups/join', {
                 userId: this.userId,
@@ -62,6 +80,7 @@ export default {
                 window.location.reload();
             }).catch(err => {
                 //TODO: add notification alert that user is already joined
+                this.errorNotification.message = 'You are already in this group.';
                 console.log(err);
             });
         },
@@ -70,18 +89,14 @@ export default {
             axios.put('/api/groups/leave', {
                 userId: this.userId,
                 groupId: this.groupId
-            }
-            ).then(() => {
+            }).then(() => {
                 window.location.reload();
             }).catch(err => {
                 //TODO: add notification alert that user is not joined
+                this.errorNotification.message = 'You are not in this group.';
                 console.log(err);
             });
         }
     },
-
-    mounted() {
-        this.getGroupData();
-    }
 }
 </script>

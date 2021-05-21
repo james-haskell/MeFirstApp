@@ -4,7 +4,7 @@
             <hr>
             <h3>My Top Ten</h3>
             <!-- Loop and display friends here -->
-            <div v-if="!errors && !isEmpty">
+            <div v-if="!errors && !(following.length === 0)">
                 <div v-for="follow in following" :key="follow.id">
                     <a :href="'/users/' + follow.id">{{ follow.name }}</a>
                 </div>
@@ -27,8 +27,8 @@
                     placeholder="Group ID">
                     <button type="submit">Look for Group</button>
             </form>
-            <div v-if="formError !== ''">
-                <p>{{ formError }}</p>
+            <div v-if="!isEmpty(formError)">
+                <p>{{ formError.message }}</p>
             </div>
         </div>
     </div>
@@ -44,21 +44,22 @@ export default {
         return {
             errors: false,
             following: {},
-            formError: '',
+            formError: {
+                message: '',
+            },
             groupId: '',
-            isEmpty: false,
         }
     },
 
     methods: {
+        isEmpty(obj) {
+            return Object.keys(obj).length === 0;
+        },
+
         loadTopTenList() {
             axios.get('/api/following/' + this.userid + '/topTen')
             .then(res => { 
                 this.following = res.data;
-            }).finally(() => {
-                if (this.following.length == 0) {
-                    this.isEmpty = true;
-                }
             }).catch(err => {
                 this.errors = true;
                 console.log(err);
@@ -67,9 +68,9 @@ export default {
 
         submit() {
             if (this.groupId === '') {
-                this.formError = 'Please enter a group ID.'
+                this.formError.message = 'Please enter a group ID.';
             } else if (isNaN(this.groupId) || this.groupId <= 0) {
-                this.formError = 'Must be a positive whole number.';
+                this.formError.message = 'Invalid Group ID.';
             } else {
                 window.location.href = '/groups/' + this.groupId;
             }

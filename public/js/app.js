@@ -2016,15 +2016,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['groupId', 'userId'],
   data: function data() {
     return {
-      errors: false,
+      errors: {},
+      errorNotification: {
+        message: ''
+      },
       groupData: {},
       groupMembers: []
     };
   },
+  created: function created() {
+    this.getGroupData();
+  },
+  mounted: function mounted() {},
   methods: {
     getGroupData: function getGroupData() {
       var _this = this;
@@ -2035,7 +2045,7 @@ __webpack_require__.r(__webpack_exports__);
 
           _this.getMemberNames();
         } else {
-          _this.errors = true;
+          _this.errors = res.data.error;
         }
       })["catch"](function (err) {
         console.log(err);
@@ -2049,7 +2059,12 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    isEmpty: function isEmpty(obj) {
+      return Object.keys(obj).length === 0;
+    },
     joinGroup: function joinGroup() {
+      var _this2 = this;
+
       axios.put('/api/groups/join', {
         userId: this.userId,
         groupId: this.groupId
@@ -2057,10 +2072,13 @@ __webpack_require__.r(__webpack_exports__);
         window.location.reload();
       })["catch"](function (err) {
         //TODO: add notification alert that user is already joined
+        _this2.errorNotification.message = 'You are already in this group.';
         console.log(err);
       });
     },
     leaveGroup: function leaveGroup() {
+      var _this3 = this;
+
       axios.put('/api/groups/leave', {
         userId: this.userId,
         groupId: this.groupId
@@ -2068,12 +2086,10 @@ __webpack_require__.r(__webpack_exports__);
         window.location.reload();
       })["catch"](function (err) {
         //TODO: add notification alert that user is not joined
+        _this3.errorNotification.message = 'You are not in this group.';
         console.log(err);
       });
     }
-  },
-  mounted: function mounted() {
-    this.getGroupData();
   }
 });
 
@@ -2312,21 +2328,21 @@ __webpack_require__.r(__webpack_exports__);
     return {
       errors: false,
       following: {},
-      formError: '',
-      groupId: '',
-      isEmpty: false
+      formError: {
+        message: ''
+      },
+      groupId: ''
     };
   },
   methods: {
+    isEmpty: function isEmpty(obj) {
+      return Object.keys(obj).length === 0;
+    },
     loadTopTenList: function loadTopTenList() {
       var _this = this;
 
       axios.get('/api/following/' + this.userid + '/topTen').then(function (res) {
         _this.following = res.data;
-      })["finally"](function () {
-        if (_this.following.length == 0) {
-          _this.isEmpty = true;
-        }
       })["catch"](function (err) {
         _this.errors = true;
         console.log(err);
@@ -2334,9 +2350,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     submit: function submit() {
       if (this.groupId === '') {
-        this.formError = 'Please enter a group ID.';
+        this.formError.message = 'Please enter a group ID.';
       } else if (isNaN(this.groupId) || this.groupId <= 0) {
-        this.formError = 'Must be a positive whole number.';
+        this.formError.message = 'Invalid Group ID.';
       } else {
         window.location.href = '/groups/' + this.groupId;
       }
@@ -38637,7 +38653,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return !_vm.errors
+  return _vm.isEmpty(_vm.errors)
     ? _c(
         "div",
         [
@@ -38680,13 +38696,17 @@ var render = function() {
               }
             },
             [_vm._v("Leave Group")]
-          )
+          ),
+          _vm._v(" "),
+          !_vm.isEmpty(_vm.errorNotification)
+            ? _c("div", [
+                _c("p", [_vm._v(_vm._s(_vm.errorNotification.message))])
+              ])
+            : _vm._e()
         ],
         2
       )
-    : _c("div", [
-        _vm._v("\n    No group exists with ID of " + _vm._s(_vm.groupId) + "\n")
-      ])
+    : _c("div", [_vm._v("\n    " + _vm._s(_vm.errors) + "\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38927,7 +38947,7 @@ var render = function() {
       _vm._v(" "),
       _c("h3", [_vm._v("My Top Ten")]),
       _vm._v(" "),
-      !_vm.errors && !_vm.isEmpty
+      !_vm.errors && !(_vm.following.length === 0)
         ? _c(
             "div",
             [
@@ -38999,8 +39019,8 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm.formError !== ""
-        ? _c("div", [_c("p", [_vm._v(_vm._s(_vm.formError))])])
+      !_vm.isEmpty(_vm.formError)
+        ? _c("div", [_c("p", [_vm._v(_vm._s(_vm.formError.message))])])
         : _vm._e()
     ])
   ])
