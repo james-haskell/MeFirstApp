@@ -2050,7 +2050,9 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     joinGroup: function joinGroup() {
-      axios.get('/api/groups/' + this.groupData.id + '/join/' + this.userId).then(function () {
+      axios.put('/api/groups/' + this.groupData.id + '/join', {
+        userId: this.userId
+      }).then(function (res) {
         window.location.reload();
       })["catch"](function (err) {
         //TODO: add notification alert that user is already joined
@@ -2058,10 +2060,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     leaveGroup: function leaveGroup() {
-      axios.get('/api/groups/' + this.groupData.id + '/leave/' + this.userId).then(function () {
+      axios.put('/api/groups/' + this.groupData.id + '/leave', {
+        userId: this.userId
+      }).then(function () {
         window.location.reload();
       })["catch"](function (err) {
-        //TODO: add notification alert that user is already joined
+        //TODO: add notification alert that user is not joined
         console.log(err);
       });
     }
@@ -2297,13 +2301,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userid'],
   data: function data() {
     return {
       errors: false,
       following: {},
-      groupId: "",
+      formError: '',
+      groupId: '',
       isEmpty: false
     };
   },
@@ -2321,6 +2329,15 @@ __webpack_require__.r(__webpack_exports__);
         _this.errors = true;
         console.log(err);
       });
+    },
+    submit: function submit() {
+      if (this.groupId === '') {
+        this.formError = 'Please enter a group ID.';
+      } else if (isNaN(this.groupId) || this.groupId <= 0) {
+        this.formError = 'Must be a positive whole number.';
+      } else {
+        window.location.href = '/groups/' + this.groupId;
+      }
     }
   },
   mounted: function mounted() {
@@ -38938,30 +38955,47 @@ var render = function() {
         _vm._v("Add Group")
       ]),
       _vm._v(" "),
-      _c("form", { attrs: { action: "/groups/" + this.groupId } }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.groupId,
-              expression: "groupId"
-            }
-          ],
-          attrs: { type: "text", name: "groupId", placeholder: "Group ID" },
-          domProps: { value: _vm.groupId },
+      _c(
+        "form",
+        {
           on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.groupId = $event.target.value
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.submit()
             }
           }
-        }),
-        _vm._v(" "),
-        _c("button", { attrs: { type: "submit" } }, [_vm._v("Look for Group")])
-      ])
+        },
+        [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.groupId,
+                expression: "groupId"
+              }
+            ],
+            attrs: { type: "text", name: "groupId", placeholder: "Group ID" },
+            domProps: { value: _vm.groupId },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.groupId = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("button", { attrs: { type: "submit" } }, [
+            _vm._v("Look for Group")
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _vm.formError !== ""
+        ? _c("div", [_c("p", [_vm._v(_vm._s(_vm.formError))])])
+        : _vm._e()
     ])
   ])
 }

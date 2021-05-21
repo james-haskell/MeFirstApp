@@ -19,7 +19,7 @@
             <hr>
             <h3>My Groups</h3> 
             <a :href="'/groups/' + this.userid + '/add'">Add Group</a>
-            <form :action="'/groups/' + this.groupId">
+            <form @submit.prevent="submit()">
                 <input 
                     type="text"
                     name="groupId"
@@ -27,6 +27,9 @@
                     placeholder="Group ID">
                     <button type="submit">Look for Group</button>
             </form>
+            <div v-if="formError !== ''">
+                <p>{{ formError }}</p>
+            </div>
         </div>
     </div>
 </template>
@@ -41,7 +44,8 @@ export default {
         return {
             errors: false,
             following: {},
-            groupId: "",
+            formError: '',
+            groupId: '',
             isEmpty: false,
         }
     },
@@ -59,6 +63,16 @@ export default {
                 this.errors = true;
                 console.log(err);
             });
+        },
+
+        submit() {
+            if (this.groupId === '') {
+                this.formError = 'Please enter a group ID.'
+            } else if (isNaN(this.groupId) || this.groupId <= 0) {
+                this.formError = 'Must be a positive whole number.';
+            } else {
+                window.location.href = '/groups/' + this.groupId;
+            }
         },
     },
 

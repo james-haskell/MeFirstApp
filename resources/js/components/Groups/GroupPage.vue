@@ -55,8 +55,9 @@ export default {
         },
 
         joinGroup() {
-            axios.get('/api/groups/' + this.groupData.id + '/join/' + this.userId
-            ).then(() => {
+            axios.put('/api/groups/' + this.groupData.id + '/join', {
+                userId: this.userId
+            }).then(res => {
                 window.location.reload();
             }).catch(err => {
                 //TODO: add notification alert that user is already joined
@@ -65,11 +66,13 @@ export default {
         },
 
         leaveGroup() {
-            axios.get('/api/groups/' + this.groupData.id + '/leave/' + this.userId
+            axios.put('/api/groups/' + this.groupData.id + '/leave', {
+                userId: this.userId
+            }
             ).then(() => {
                 window.location.reload();
             }).catch(err => {
-                //TODO: add notification alert that user is already joined
+                //TODO: add notification alert that user is not joined
                 console.log(err);
             });
         }
