@@ -55,8 +55,9 @@ export default {
         },
 
         joinGroup() {
-            axios.put('/api/groups/' + this.groupData.id + '/join', {
-                userId: this.userId
+            axios.put('/api/groups/join', {
+                userId: this.userId,
+                groupId: this.groupId
             }).then(res => {
                 window.location.reload();
             }).catch(err => {
@@ -66,8 +67,9 @@ export default {
         },
 
         leaveGroup() {
-            axios.put('/api/groups/' + this.groupData.id + '/leave', {
-                userId: this.userId
+            axios.put('/api/groups/leave', {
+                userId: this.userId,
+                groupId: this.groupId
             }
             ).then(() => {
                 window.location.reload();

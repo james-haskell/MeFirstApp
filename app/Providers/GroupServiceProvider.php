@@ -59,7 +59,7 @@ class GroupServiceProvider extends ServiceProvider
             ]);
             return $memberNames;
         }
-        return abort(404);
+        return abort(400);
     }
 
     public static function leaveGroup($groupId, $userId) {
@@ -81,6 +81,6 @@ class GroupServiceProvider extends ServiceProvider
             ]);
             return $memberNames;
         }
-        return abort(404);
+        return abort(400);
     }
 }

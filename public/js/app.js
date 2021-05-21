@@ -2050,8 +2050,9 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     joinGroup: function joinGroup() {
-      axios.put('/api/groups/' + this.groupData.id + '/join', {
-        userId: this.userId
+      axios.put('/api/groups/join', {
+        userId: this.userId,
+        groupId: this.groupId
       }).then(function (res) {
         window.location.reload();
       })["catch"](function (err) {
@@ -2060,8 +2061,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     leaveGroup: function leaveGroup() {
-      axios.put('/api/groups/' + this.groupData.id + '/leave', {
-        userId: this.userId
+      axios.put('/api/groups/leave', {
+        userId: this.userId,
+        groupId: this.groupId
       }).then(function () {
         window.location.reload();
       })["catch"](function (err) {
@@ -38586,9 +38588,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _vm._v("\n    Add Group\n    "),
-    _c("form", { attrs: { action: "/api/groups/" + this.userid + "/add" } }, [
-      _vm._m(0)
-    ])
+    _c(
+      "form",
+      {
+        attrs: { action: "/api/groups/" + this.userid + "/add", method: "POST" }
+      },
+      [_vm._m(0)]
+    )
   ])
 }
 var staticRenderFns = [

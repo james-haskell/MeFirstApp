@@ -23,13 +23,15 @@ class GroupController extends Controller
         return GroupServiceProvider::getGroupDataById($groupId);
     }
 
-    public function joinGroup(Request $request, $groupId) {
+    public function joinGroup(Request $request) {
         $userId = $request->userId;
+        $groupId = $request->groupId;
         return GroupServiceProvider::joinGroup($groupId, $userId);
     }
 
-    public function leaveGroup(Request $request, $groupId) {
+    public function leaveGroup(Request $request) {
         $userId = $request->userId;
+        $groupId = $request->groupId;
         return GroupServiceProvider::leaveGroup($groupId, $userId);
     }
 
