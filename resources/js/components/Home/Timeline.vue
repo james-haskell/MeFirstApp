@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-6">
+    <div class="container">
         <div class="card">   
             <!-- User post section -->
             <div class="card-body overflow-auto">
@@ -24,7 +24,6 @@
 
         <!-- Friends' Posts -->
         <friends-posts></friends-posts>
-
     </div>
 </template>
 

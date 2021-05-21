@@ -11,17 +11,12 @@
     <div class="row justify-content-center">
 
         <!-- Nav Sidebar -->
-        <home-sidebar
-            :userid="{{ $userId }}">
-        </home-sidebar>
 
         <!-- Timeline -->
         <home-timeline></home-timeline>
         
         <!-- Top Ten List and Groups Sidebar -->
-        <topten-list 
-            :userid="{{ $userId }}">
-        </topten-list>
+        
 
         
     </div>

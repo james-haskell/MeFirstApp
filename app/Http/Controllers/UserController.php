@@ -18,7 +18,7 @@ class UserController extends Controller
     }
 
     public function show(User $user) {
-            return view('user')->with('user', $user);
+            return view('user')->with('user', $user)->with('userId', $user->id);
     }
 
     public function follow(Request $request, User $user) {

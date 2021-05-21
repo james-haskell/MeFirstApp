@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-3">
+    <div class="container pr-1">
         <div class="d-flex flex-column align-items-center">
             <hr>
             Sidebar

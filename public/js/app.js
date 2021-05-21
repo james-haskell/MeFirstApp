@@ -2244,7 +2244,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2286,8 +2285,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
 //
 //
 //
@@ -38787,7 +38784,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-3" }, [
+  return _c("div", { staticClass: "container pr-1" }, [
     _c("div", { staticClass: "d-flex flex-column align-items-center" }, [
       _c("hr"),
       _vm._v("\n        Sidebar\n        "),
@@ -38845,7 +38842,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "col-md-6" },
+    { staticClass: "container" },
     [
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-body overflow-auto" }, [
@@ -38941,88 +38938,80 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-3" }, [
-    _c("div", { staticClass: "container" }, [
-      _c("hr"),
-      _vm._v(" "),
-      _c("h3", [_vm._v("My Top Ten")]),
-      _vm._v(" "),
-      !_vm.errors && !(_vm.following.length === 0)
-        ? _c(
-            "div",
-            [
-              _vm._l(_vm.following, function(follow) {
-                return _c("div", { key: follow.id }, [
-                  _c("a", { attrs: { href: "/users/" + follow.id } }, [
-                    _vm._v(_vm._s(follow.name))
-                  ])
+  return _c("div", { staticClass: "container" }, [
+    _c("hr"),
+    _vm._v(" "),
+    _c("h3", [_vm._v("My Top Ten")]),
+    _vm._v(" "),
+    !_vm.errors && !(_vm.following.length === 0)
+      ? _c(
+          "div",
+          [
+            _vm._l(_vm.following, function(follow) {
+              return _c("div", { key: follow.id }, [
+                _c("a", { attrs: { href: "/users/" + follow.id } }, [
+                  _vm._v(_vm._s(follow.name))
                 ])
-              }),
-              _vm._v(" "),
-              _c(
-                "a",
-                { attrs: { href: "/following/" + this.userid + "/all" } },
-                [_vm._v("See everyone you follow...")]
-              )
-            ],
-            2
-          )
-        : !_vm.errors && _vm.isEmpty
-        ? _c("div", [_vm._v("\n            Not following anyone.\n        ")])
-        : _c("div", [
-            _vm._v("\n            Error loading Top Ten list.\n        ")
-          ]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("h3", [_vm._v("My Groups")]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "/groups/" + this.userid + "/add" } }, [
-        _vm._v("Add Group")
-      ]),
-      _vm._v(" "),
-      _c(
-        "form",
-        {
+              ])
+            }),
+            _vm._v(" "),
+            _c("a", { attrs: { href: "/following/" + this.userid + "/all" } }, [
+              _vm._v("See everyone you follow...")
+            ])
+          ],
+          2
+        )
+      : !_vm.errors && _vm.isEmpty
+      ? _c("div", [_vm._v("\n        Not following anyone.\n    ")])
+      : _c("div", [_vm._v("\n        Error loading Top Ten list.\n    ")]),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("h3", [_vm._v("My Groups")]),
+    _vm._v(" "),
+    _c("a", { attrs: { href: "/groups/" + this.userid + "/add" } }, [
+      _vm._v("Add Group")
+    ]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.submit()
+          }
+        }
+      },
+      [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.groupId,
+              expression: "groupId"
+            }
+          ],
+          attrs: { type: "text", name: "groupId", placeholder: "Group ID" },
+          domProps: { value: _vm.groupId },
           on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.submit()
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.groupId = $event.target.value
             }
           }
-        },
-        [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.groupId,
-                expression: "groupId"
-              }
-            ],
-            attrs: { type: "text", name: "groupId", placeholder: "Group ID" },
-            domProps: { value: _vm.groupId },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.groupId = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("button", { attrs: { type: "submit" } }, [
-            _vm._v("Look for Group")
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      !_vm.isEmpty(_vm.formError)
-        ? _c("div", [_c("p", [_vm._v(_vm._s(_vm.formError.message))])])
-        : _vm._e()
-    ])
+        }),
+        _vm._v(" "),
+        _c("button", { attrs: { type: "submit" } }, [_vm._v("Look for Group")])
+      ]
+    ),
+    _vm._v(" "),
+    !_vm.isEmpty(_vm.formError)
+      ? _c("div", [_c("p", [_vm._v(_vm._s(_vm.formError.message))])])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

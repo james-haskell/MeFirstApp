@@ -26,7 +26,19 @@
         </header>
 
         <main class="py-4">
-            @yield('content')
+            <div class="d-flex flex-row justify-items-center">
+                <div class="col-md-2">
+                    @include('layouts.inc.sidebar')
+                </div>
+
+                <div class="col-md-6">
+                    @yield('content')
+                </div>
+
+                <div class="col-md-3">
+                    @include('layouts.inc.topten')
+                </div>
+            </div>
         </main>
     </div>
 </body>
