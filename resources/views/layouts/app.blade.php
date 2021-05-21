@@ -26,6 +26,9 @@
         </header>
 
         <main class="py-4">
+            @if(Request::url() === 'http://mefirst.test/login' || Request::url() === 'http://mefirst.test/register')
+                @yield('content')
+            @else
             <div class="d-flex flex-row justify-items-center">
                 <div class="col-md-2">
                     @include('layouts.inc.sidebar')
@@ -39,6 +42,7 @@
                     @include('layouts.inc.topten')
                 </div>
             </div>
+            @endif
         </main>
     </div>
 </body>
