@@ -27,6 +27,10 @@ class GroupController extends Controller
         return GroupServiceProvider::joinGroup($groupId, $userId);
     }
 
+    public function leaveGroup($groupId, $userId) {
+        return GroupServiceProvider::leaveGroup($groupId, $userId);
+    }
+
     public function showAddForm($userId) {
         return view('add-group', [
             'userId' => $userId

@@ -43,10 +43,25 @@ class GroupServiceProvider extends ServiceProvider
 
     public static function joinGroup($groupId, $userId) {
         $memberIds = MyGroup::getGroupMemberIds($groupId)[0]->member_ids;
-        
-        if (true) { //TODO: Check if user is already joined -> similar to follow system?
+        $isJoined = in_array($userId, $memberIds);
+        if (!$isJoined) {
             array_push($memberIds, (int) $userId);
 
+            MyGroup::find($groupId)->update(['member_ids' => $memberIds]);
+            return $memberIds;
+        }
+        //TODO: Add error handling
+    }
+
+    public static function leaveGroup($groupId, $userId) {
+        $memberIds = MyGroup::getGroupMemberIds($groupId)[0]->member_ids;
+        $isJoined = in_array($userId, $memberIds);
+        if ($isJoined) {
+            //Remove user's id from members array
+            $index = array_search($userId, $memberIds);
+            unset($memberIds[$index]);
+            $memberIds = array_values($memberIds);
+            
             MyGroup::find($groupId)->update(['member_ids' => $memberIds]);
             return $memberIds;
         }

@@ -2013,6 +2013,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['groupId', 'userId'],
   data: function data() {
@@ -2042,6 +2043,13 @@ __webpack_require__.r(__webpack_exports__);
         window.location.reload();
       })["catch"](function (err) {
         //TODO: add notification alert that user is already joined
+        console.log(err);
+      });
+    },
+    leaveGroup: function leaveGroup() {
+      axios.get('/api/groups/' + this.groupData.id + '/leave/' + this.userId)["finally"](function () {
+        window.location.reload();
+      })["catch"](function (err) {
         console.log(err);
       });
     }
@@ -38617,6 +38625,18 @@ var render = function() {
             }
           },
           [_vm._v("Join Group")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            on: {
+              click: function($event) {
+                return _vm.leaveGroup()
+              }
+            }
+          },
+          [_vm._v("Leave Group")]
         )
       ])
     : _c("div", [

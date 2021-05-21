@@ -6,6 +6,7 @@
         Group Members: {{ groupMembers }}
 
         <button @click="joinGroup()">Join Group</button>
+        <button @click="leaveGroup()">Leave Group</button>
     </div>
     <div v-else>
         No group exists with ID of {{ groupId }}
@@ -48,6 +49,15 @@ export default {
                 window.location.reload();
             }).catch(err => {
                 //TODO: add notification alert that user is already joined
+                console.log(err);
+            });
+        },
+
+        leaveGroup() {
+            axios.get('/api/groups/' + this.groupData.id + '/leave/' + this.userId
+            ).finally(() => {
+                window.location.reload();
+            }).catch(err => {
                 console.log(err);
             });
         }
