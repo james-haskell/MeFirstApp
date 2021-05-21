@@ -2044,12 +2044,13 @@ __webpack_require__.r(__webpack_exports__);
     getMemberNames: function getMemberNames() {
       for (var i = 0; i < this.groupData.member_ids.length; i++) {
         this.groupMembers.push({
+          id: this.groupData.member_ids[i],
           name: this.groupData.member_names[i]
         });
       }
     },
     joinGroup: function joinGroup() {
-      axios.get('/api/groups/' + this.groupData.id + '/join/' + this.userId)["finally"](function () {
+      axios.get('/api/groups/' + this.groupData.id + '/join/' + this.userId).then(function () {
         window.location.reload();
       })["catch"](function (err) {
         //TODO: add notification alert that user is already joined
@@ -2057,9 +2058,10 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     leaveGroup: function leaveGroup() {
-      axios.get('/api/groups/' + this.groupData.id + '/leave/' + this.userId)["finally"](function () {
+      axios.get('/api/groups/' + this.groupData.id + '/leave/' + this.userId).then(function () {
         window.location.reload();
       })["catch"](function (err) {
+        //TODO: add notification alert that user is already joined
         console.log(err);
       });
     }
@@ -38626,8 +38628,10 @@ var render = function() {
               "\n    "
           ),
           _vm._l(_vm.groupMembers, function(member) {
-            return _c("div", { key: member.name }, [
-              _vm._v("\n        " + _vm._s(member.name) + "\n    ")
+            return _c("div", { key: member.id }, [
+              _c("a", { attrs: { href: "/users/" + member.id } }, [
+                _vm._v(_vm._s(member.name))
+              ])
             ])
           }),
           _vm._v(" "),

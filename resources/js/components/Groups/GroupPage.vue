@@ -3,8 +3,8 @@
         Group ID: {{ groupData.id }}
         Group Name: {{ groupData.groupName }}
         Group Owner: {{ groupData.owner_id }}
-        <div v-for="member in groupMembers" :key="member.name">
-            {{ member.name }}
+        <div v-for="member in groupMembers" :key="member.id">
+            <a :href="'/users/' + member.id">{{ member.name }}</a>
         </div>
 
         <button @click="joinGroup()">Join Group</button>
@@ -48,6 +48,7 @@ export default {
         getMemberNames() {
             for (let i = 0; i < this.groupData.member_ids.length; i++) {
                 this.groupMembers.push({
+                    id: this.groupData.member_ids[i],
                     name: this.groupData.member_names[i]
                 });
             }
@@ -55,7 +56,7 @@ export default {
 
         joinGroup() {
             axios.get('/api/groups/' + this.groupData.id + '/join/' + this.userId
-            ).finally(() => {
+            ).then(() => {
                 window.location.reload();
             }).catch(err => {
                 //TODO: add notification alert that user is already joined
@@ -65,9 +66,10 @@ export default {
 
         leaveGroup() {
             axios.get('/api/groups/' + this.groupData.id + '/leave/' + this.userId
-            ).finally(() => {
+            ).then(() => {
                 window.location.reload();
             }).catch(err => {
+                //TODO: add notification alert that user is already joined
                 console.log(err);
             });
         }
