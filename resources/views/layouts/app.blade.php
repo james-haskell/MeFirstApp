@@ -30,7 +30,7 @@
                 @yield('content')
             @else
             <div class="d-flex flex-row justify-items-center">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     @include('layouts.inc.sidebar', ['userId' => Auth::user()->id])
                 </div>
 
