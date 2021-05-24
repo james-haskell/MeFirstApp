@@ -1,13 +1,10 @@
 <template>
-    <div class="container card">
-        <div class="d-flex flex-column align-items-center">
+    <div class="container">
+        <div class="d-flex flex-column align-items-center  card">
             Sidebar
             <div><a href="/">Home</a></div>
-            <div><a href="/posts">Posts</a></div>
-            <div class="d-flex flex-column align-items-center">
-                <a :href="'/followers/' + this.userid + '/all'">My Followers</a>
-                <span v-if="!errors">{{ followerCount }}</span>
-            </div>
+            <div><a :href="'/users/' + this.userid">My Profile</a></div>
+            <div><a href="#">Settings</a></div>
         </div>
     </div>
 </template>
@@ -18,14 +15,6 @@ export default {
         "userid",
     ],
 
-    created() {
-        this.getFollowerCount();
-    },
-
-    mounted() {
-        
-    },
-
     data() {
         return {
             errors: false,
@@ -34,21 +23,7 @@ export default {
     },
 
     methods: {
-        getFollowerCount() {
-            axios.get('/api/followers/' + this.userid + '/all')
-            .then(res => {
-                this.followerCount = res.data.length;
-            }).catch(err => {
-                this.errors = true;
-                console.log(err);
-            })
-        }
+        
     }, 
 }
 </script>
-
-<style scoped>
-    .card {
-        padding: 5px;
-    }
-</style>
