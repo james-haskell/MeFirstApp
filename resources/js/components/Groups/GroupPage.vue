@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isEmpty(errors)">
+    <div>
         Group ID: {{ groupData.id }}
         Group Name: {{ groupData.groupName }}
         Group Owner: {{ groupData.owner_id }}
@@ -13,9 +13,6 @@
             <p>{{ errorNotification.message }}</p>
         </div>
     </div>
-    <div v-else>
-        {{ errors }}
-    </div>
 </template>
 
 <script>
@@ -27,7 +24,6 @@ export default {
     
     data() {
         return {
-            errors: {},
             errorNotification: {
                 message: '',
             },
@@ -48,12 +44,8 @@ export default {
         getGroupData() {
             axios.get('/api/groups/lfg?groupId=' + this.groupId
             ).then(res => {
-                if (!res.data.error) {
-                    this.groupData = res.data;
-                    this.getMemberNames();
-                } else {
-                    this.errors = res.data.error;
-                }
+                this.groupData = res.data;
+                this.getMemberNames();
             }).catch(err => {
                 console.log(err);
             })
