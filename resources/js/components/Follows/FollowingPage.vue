@@ -1,18 +1,14 @@
 <template>
-    <div class="col-md-3">
-        <div class="container">
-            <div v-if="!errors && !isEmpty">
-                    <div v-for="follow in following" :key="follow.id">
-                        <a :href="'/users/' + follow.id">{{ follow.name }}</a>
-                    </div>
-                </div>
-                <div v-else-if="!errors && isEmpty">
-                    Not following anyone.
-                </div>
-                <div v-else>
-                    Error loading following list.
-                </div>
+    <div v-if="!errors && !isEmpty">
+        <div v-for="follow in following" :key="follow.id">
+            <a :href="'/users/' + follow.id">{{ follow.name }}</a>
         </div>
+    </div>
+    <div v-else-if="!errors && isEmpty">
+        Not following anyone.
+    </div>
+    <div v-else>
+        Error loading following list.
     </div>
 </template>
 

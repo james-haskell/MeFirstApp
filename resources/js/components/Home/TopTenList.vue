@@ -1,25 +1,46 @@
 <template>
-    <div class="col-md-3">
-        <div class="container">
-            <hr>
-            <h3>My Top Ten</h3>
+    <div class="container">
+        <div class="d-flex flex-column align-items-center card">
+            <h3 class="mt-2">My Top Ten</h3>
             <!-- Loop and display friends here -->
-            <div v-if="!errors && !isEmpty">
-                <div v-for="follow in following" :key="follow.id">
+            <div v-if="!errors && !(following.length === 0)">
+                <div class="d-flex flex-column align-items-center" v-for="follow in following" :key="follow.id">
                     <a :href="'/users/' + follow.id">{{ follow.name }}</a>
                 </div>
                 <a :href="'/following/' + this.userid + '/all'">See everyone you follow...</a>
             </div>
-            <div v-else-if="!errors && isEmpty">
+            <div v-else-if="!errors && following.length === 0">
                 Not following anyone.
             </div>
             <div v-else>
                 Error loading Top Ten list.
             </div>
-            <hr>
+            <hr class="w-75">
             <h3>My Groups</h3> 
-            <a :href="'/groups/' + this.userid + '/add'"> Add Group</a>
-            <a :href="'/groups/' + this.userid + '/add'"> Look for Group</a>
+            <a :href="'/groups/' + this.userid + '/add'">Add Group</a>
+            <form class="d-flex flex-row align-items-center" @submit.prevent="submit()">
+                    <input 
+                        class="w-50 m-2"
+                        type="text"
+                        name="groupId"
+                        v-model="groupId"
+                        placeholder="Group ID">
+                    <button class="m-2" type="submit">Look for Group</button>
+            </form>
+            <div v-if="!errors && !(myGroups.length === 0)">
+                <div class="d-flex flex-column align-items-center" v-for="group in myGroups" :key="group.id">
+                    <a :href="'/groups/' + group.id">{{ group.groupName }}</a>
+                </div>
+            </div>
+            <div v-else-if="!errors && myGroups.length === 0">
+                Not in any groups.
+            </div>
+            <div v-else>
+                Error loading My Groups.
+            </div>
+            <div v-if="!isEmpty(formError)">
+                <p>{{ formError.message }}</p>
+            </div>
         </div>
     </div>
 </template>
@@ -34,28 +55,53 @@ export default {
         return {
             errors: false,
             following: {},
-            isEmpty: false,
+            formError: {
+                message: '',
+            },
+            groupId: '',
+            myGroups: {},
         }
     },
 
     methods: {
+        isEmpty(obj) {
+            return Object.keys(obj).length === 0;
+        },
+
         loadTopTenList() {
             axios.get('/api/following/' + this.userid + '/topTen')
             .then(res => { 
                 this.following = res.data;
-            }).finally(() => {
-                if (this.following.length == 0) {
-                    this.isEmpty = true;
-                }
             }).catch(err => {
                 this.errors = true;
                 console.log(err);
             });
         },
+
+        loadMyGroups() {
+            axios.get('/api/groups/mygroups/' + this.userid
+            ).then(res => { 
+                this.myGroups = res.data
+            }).catch(err => {
+                this.errors = true;
+                console.log(err);
+            });
+        },
+
+        submit() {
+            if (this.groupId === '') {
+                this.formError.message = 'Please enter a group ID.';
+            } else if (isNaN(this.groupId) || this.groupId <= 0) {
+                this.formError.message = 'Invalid Group ID.';
+            } else {
+                window.location.href = '/groups/' + this.groupId;
+            }
+        },
     },
 
     mounted() {
         this.loadTopTenList();
+        this.loadMyGroups();
     }
 }
 </script>

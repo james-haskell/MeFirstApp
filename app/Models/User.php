@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\MyGroup;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -48,6 +48,12 @@ class User extends Authenticatable
 
     public function getUserId() {
         return $this->id;
+    }
+
+    public static function getUserDataById($userId) {
+        $userData = User::find($userId)->id;
+
+        return response()->json($userData);
     }
 
     public function getProfileLinkAttribute() {

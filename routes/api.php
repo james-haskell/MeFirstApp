@@ -28,5 +28,11 @@ Route::get('following/{userId}/all', 'App\Http\Controllers\FollowController@getA
 Route::get('following/{userId}/topTen', 'App\Http\Controllers\FollowController@getTopTen');
 
 // Group Routes
-Route::get('groups/{user}/add', 'App\Http\Controllers\GroupController@add');
+Route::post('groups/{user}/add', 'App\Http\Controllers\GroupController@add');
+Route::get('groups/lfg', 'App\Http\Controllers\GroupController@getGroupDataById');
+Route::get('groups/mygroups/{userId}', 'App\Http\Controllers\GroupController@getMyGroups');
+Route::put('groups/join', 'App\Http\Controllers\GroupController@joinGroup');
+Route::put('groups/leave', 'App\Http\Controllers\GroupController@leaveGroup');
+
+Route::get('users/{userId}/data', 'App\Http\Controllers\UserController@getUserDataById');
 

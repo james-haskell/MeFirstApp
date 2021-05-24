@@ -26,7 +26,23 @@
         </header>
 
         <main class="py-4">
-            @yield('content')
+            @if(Request::url() === 'http://mefirst.test/login' || Request::url() === 'http://mefirst.test/register')
+                @yield('content')
+            @else
+            <div class="d-flex flex-row justify-items-center">
+                <div class="col-md-3">
+                    @include('layouts.inc.sidebar', ['userId' => Auth::user()->id])
+                </div>
+
+                <div class="col-md-6">
+                    @yield('content')
+                </div>
+
+                <div class="col-md-3">
+                    @include('layouts.inc.topten', ['userId' => Auth::user()->id])
+                </div>
+            </div>
+            @endif
         </main>
     </div>
 </body>

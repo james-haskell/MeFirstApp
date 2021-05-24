@@ -16,13 +16,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('users/{user}/follow', 'App\Http\Controllers\UserController@follow')->name('user.follow');
     Route::get('users/{user}/unfollow', 'App\Http\Controllers\UserController@unFollow')->name('user.unfollow');
 
-    Route::get('groups/{userId}/add', 'App\Http\Controllers\GroupController@showAddForm');
+    
 
     // Follower Routes
     Route::get('followers/{userId}/all', 'App\Http\Controllers\FollowController@showFollowers')->name('followers.all');
 
     // Following Routes
     Route::get('following/{userId}/all', 'App\Http\Controllers\FollowController@showFollowing')->name('following.all');
+
+    // Group Routes
+    Route::get('groups/{userId}/add', 'App\Http\Controllers\GroupController@showAddForm');
+    Route::get('groups/{groupId}', 'App\Http\Controllers\GroupController@showGroupPage')->name('group.show');
 
     // Post Routes
     Route::get('posts', 'App\Http\Controllers\PostController@index')->name('posts.index');

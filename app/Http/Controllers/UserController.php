@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\UserServiceProvider;
 
 class UserController extends Controller
 {
@@ -12,8 +13,12 @@ class UserController extends Controller
         return 'name';
     }
 
+    public function getUserDataById($userId) {
+        return UserServiceProvider::getUserDataById($userId);
+    }
+
     public function show(User $user) {
-            return view('user')->with('user', $user);
+            return view('user')->with('user', $user)->with('userId', $user->id);
     }
 
     public function follow(Request $request, User $user) {

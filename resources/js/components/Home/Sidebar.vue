@@ -1,11 +1,10 @@
 <template>
-    <div class="col-md-3">
+    <div class="container card">
         <div class="d-flex flex-column align-items-center">
-            <hr>
             Sidebar
             <div><a href="/">Home</a></div>
             <div><a href="/posts">Posts</a></div>
-            <div>
+            <div class="d-flex flex-column align-items-center">
                 <a :href="'/followers/' + this.userid + '/all'">My Followers</a>
                 <span v-if="!errors">{{ followerCount }}</span>
             </div>
@@ -18,6 +17,14 @@ export default {
     props: [
         "userid",
     ],
+
+    created() {
+        this.getFollowerCount();
+    },
+
+    mounted() {
+        
+    },
 
     data() {
         return {
@@ -36,10 +43,12 @@ export default {
                 console.log(err);
             })
         }
-    },
-
-    mounted() {
-        this.getFollowerCount();
-    },
+    }, 
 }
 </script>
+
+<style scoped>
+    .card {
+        padding: 5px;
+    }
+</style>
