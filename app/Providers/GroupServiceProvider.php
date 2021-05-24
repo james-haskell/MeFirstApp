@@ -42,6 +42,25 @@ class GroupServiceProvider extends ServiceProvider
         ]);
     }
 
+    public static function getMyGroups($userId) {
+        $allGroups = MyGroup::all();
+        $myGroupIds = [];
+        for($i=0;$i<count($allGroups); $i++) {
+            $memberIds = MyGroup::getGroupMemberIds($allGroups[$i]->id);
+            if (in_array($userId, $memberIds[0]->member_ids)) {
+                array_push($myGroupIds, $allGroups[$i]->id);
+            }
+        }
+
+        $myGroupsData = [];
+        for($i=0;$i<count($myGroupIds);$i++) {
+            $groupData = MyGroup::getGroupDataById($myGroupIds[$i]);
+            array_push($myGroupsData, $groupData[0]);
+        }
+
+        return $myGroupsData;
+    }
+
     public static function joinGroup($groupId, $userId) {
         $memberIds = MyGroup::getGroupMemberIds($groupId)[0]->member_ids;
         $memberNames = MyGroup::getGroupMemberNames($groupId)[0]->member_names;

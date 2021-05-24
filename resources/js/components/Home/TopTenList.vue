@@ -9,7 +9,7 @@
                 </div>
                 <a :href="'/following/' + this.userid + '/all'">See everyone you follow...</a>
             </div>
-            <div v-else-if="!errors && isEmpty">
+            <div v-else-if="!errors && following.length === 0">
                 Not following anyone.
             </div>
             <div v-else>
@@ -27,6 +27,17 @@
                         placeholder="Group ID">
                     <button class="m-2" type="submit">Look for Group</button>
             </form>
+            <div v-if="!errors && !(myGroups.length === 0)">
+                <div class="d-flex flex-column align-items-center" v-for="group in myGroups" :key="group.id">
+                    <a :href="'/groups/' + group.id">{{ group.groupName }}</a>
+                </div>
+            </div>
+            <div v-else-if="!errors && myGroups.length === 0">
+                Not in any groups.
+            </div>
+            <div v-else>
+                Error loading My Groups.
+            </div>
             <div v-if="!isEmpty(formError)">
                 <p>{{ formError.message }}</p>
             </div>
@@ -48,6 +59,7 @@ export default {
                 message: '',
             },
             groupId: '',
+            myGroups: {},
         }
     },
 
@@ -60,6 +72,16 @@ export default {
             axios.get('/api/following/' + this.userid + '/topTen')
             .then(res => { 
                 this.following = res.data;
+            }).catch(err => {
+                this.errors = true;
+                console.log(err);
+            });
+        },
+
+        loadMyGroups() {
+            axios.get('/api/groups/mygroups/' + this.userid
+            ).then(res => { 
+                this.myGroups = res.data
             }).catch(err => {
                 this.errors = true;
                 console.log(err);
@@ -79,6 +101,7 @@ export default {
 
     mounted() {
         this.loadTopTenList();
+        this.loadMyGroups();
     }
 }
 </script>

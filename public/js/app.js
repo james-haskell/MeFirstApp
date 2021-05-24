@@ -2313,6 +2313,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userid'],
   data: function data() {
@@ -2322,7 +2333,8 @@ __webpack_require__.r(__webpack_exports__);
       formError: {
         message: ''
       },
-      groupId: ''
+      groupId: '',
+      myGroups: {}
     };
   },
   methods: {
@@ -2339,6 +2351,16 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
     },
+    loadMyGroups: function loadMyGroups() {
+      var _this2 = this;
+
+      axios.get('/api/groups/mygroups/' + this.userid).then(function (res) {
+        _this2.myGroups = res.data;
+      })["catch"](function (err) {
+        _this2.errors = true;
+        console.log(err);
+      });
+    },
     submit: function submit() {
       if (this.groupId === '') {
         this.formError.message = 'Please enter a group ID.';
@@ -2351,6 +2373,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.loadTopTenList();
+    this.loadMyGroups();
   }
 });
 
@@ -39380,7 +39403,7 @@ var render = function() {
             ],
             2
           )
-        : !_vm.errors && _vm.isEmpty
+        : !_vm.errors && _vm.following.length === 0
         ? _c("div", [_vm._v("\n            Not following anyone.\n        ")])
         : _c("div", [
             _vm._v("\n            Error loading Top Ten list.\n        ")
@@ -39433,6 +39456,31 @@ var render = function() {
           ])
         ]
       ),
+      _vm._v(" "),
+      !_vm.errors && !(_vm.myGroups.length === 0)
+        ? _c(
+            "div",
+            _vm._l(_vm.myGroups, function(group) {
+              return _c(
+                "div",
+                {
+                  key: group.id,
+                  staticClass: "d-flex flex-column align-items-center"
+                },
+                [
+                  _c("a", { attrs: { href: "/groups/" + group.id } }, [
+                    _vm._v(_vm._s(group.groupName))
+                  ])
+                ]
+              )
+            }),
+            0
+          )
+        : !_vm.errors && _vm.myGroups.length === 0
+        ? _c("div", [_vm._v("\n            Not in any groups.\n        ")])
+        : _c("div", [
+            _vm._v("\n            Error loading My Groups.\n        ")
+          ]),
       _vm._v(" "),
       !_vm.isEmpty(_vm.formError)
         ? _c("div", [_c("p", [_vm._v(_vm._s(_vm.formError.message))])])

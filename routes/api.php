@@ -30,6 +30,7 @@ Route::get('following/{userId}/topTen', 'App\Http\Controllers\FollowController@g
 // Group Routes
 Route::post('groups/{user}/add', 'App\Http\Controllers\GroupController@add');
 Route::get('groups/lfg', 'App\Http\Controllers\GroupController@getGroupDataById');
+Route::get('groups/mygroups/{userId}', 'App\Http\Controllers\GroupController@getMyGroups');
 Route::put('groups/join', 'App\Http\Controllers\GroupController@joinGroup');
 Route::put('groups/leave', 'App\Http\Controllers\GroupController@leaveGroup');
 
