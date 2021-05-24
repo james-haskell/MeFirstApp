@@ -17,8 +17,16 @@ class UserController extends Controller
         return UserServiceProvider::getUserDataById($userId);
     }
 
-    public function show(User $user) {
-            return view('user')->with('user', $user)->with('userId', $user->id);
+    public function show(Request $request, User $user) {
+        $isNot = 0;
+        $isFollowing = 0;
+        if ($request->user()->getUserId() !== $user->id) {
+            $isNot = 1;
+            if ($request->user()->isFollowing($user)) {
+                $isFollowing = 1;
+            }
+        }
+        return view('user')->with('user', $user)->with('isNot', $isNot)->with('isFollowing', $isFollowing);
     }
 
     public function follow(Request $request, User $user) {

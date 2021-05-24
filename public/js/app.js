@@ -2405,7 +2405,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['followRoute', 'isFollowing', 'isNot', 'unfollowRoute', 'user'],
+  data: function data() {
+    return {};
+  },
+  methods: {}
+});
 
 /***/ }),
 
@@ -39096,16 +39111,38 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _vm.isNot
+      ? _c("div", [
+          _vm._v("I am not this user.\n        "),
+          _vm.isFollowing
+            ? _c("div", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { href: _vm.unfollowRoute }
+                  },
+                  [_vm._v("Unfollow")]
+                )
+              ])
+            : _c("div", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { href: _vm.followRoute }
+                  },
+                  [_vm._v("Follow")]
+                )
+              ])
+        ])
+      : _c("div", [_vm._v("I AM the user.")]),
+    _vm._v(" "),
+    _c("p", [_vm._v(_vm._s(_vm.user))])
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("p", [_vm._v("POOOOP")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
