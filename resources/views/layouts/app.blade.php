@@ -26,7 +26,7 @@
         </header>
 
         <main class="py-4">
-            @if(Request::url() === 'http://mefirst.test/login' || Request::url() === 'http://mefirst.test/register')
+            @if(str_contains(Request::url(), '/login') || str_contains(Request::url(), '/register'))
                 @yield('content')
             @else
             <div class="d-flex flex-row justify-items-center">

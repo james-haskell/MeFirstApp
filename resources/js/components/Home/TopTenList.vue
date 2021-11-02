@@ -4,7 +4,7 @@
             <!-- Top Ten List -->
             <h3 class="mt-2">My Top Ten</h3>
             <div v-if="!errors && !(following.length === 0)">
-                <div class="d-flex flex-column align-items-center" v-for="follow in following" :key="follow.id">
+                <div class="d-flex flex-column justify-content-center align-items-center" v-for="follow in following" :key="follow.id">
                     <a :href="'/users/' + follow.id">{{ follow.name }}</a>
                 </div>
                 <a :href="'/following/' + this.userid + '/all'">See everyone you follow...</a>
@@ -26,7 +26,7 @@
 
             <!-- My Groups -->
             <h3>My Groups</h3> 
-            <a :href="'/groups/' + this.userid + '/add'">Add Group</a>
+            <button @click="showAddForm">Add Group</button>
             <form class="d-flex flex-row align-items-center" @submit.prevent="submit()">
                     <input 
                         class="w-50 m-2"
@@ -119,10 +119,17 @@ export default {
             axios.get('/api/groups/mygroups/' + this.userid
             ).then(res => { 
                 this.myGroups = res.data
+                console.log(this.myGroups);
             }).catch(err => {
                 this.errors = true;
                 console.log(err);
             });
+        },
+
+        showAddForm() {
+            if (this.userid) {
+                window.location = '/groups/add?id=' + this.userid;
+            }
         },
 
         submit() {

@@ -23,8 +23,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('following/{userId}/all', 'App\Http\Controllers\FollowController@showFollowing')->name('following.all');
 
     // Group Routes
-    Route::get('groups/{userId}/add', 'App\Http\Controllers\GroupController@showAddForm');
-    Route::get('groups/{groupId}', 'App\Http\Controllers\GroupController@showGroupPage')->name('group.show');
+    Route::get('groups/add', 'App\Http\Controllers\Pages\GroupController@showAddForm');
+    Route::get('groups/{groupId}', 'App\Http\Controllers\Pages\GroupController@showGroupPage')->name('group.show');
 
     // Post Routes
     Route::get('posts', 'App\Http\Controllers\PostController@index')->name('posts.index');

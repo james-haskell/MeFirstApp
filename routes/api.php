@@ -21,18 +21,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Follower Routes
-Route::get('followers/{userId}/all', 'App\Http\Controllers\FollowController@getAllFollowers');
+Route::get('followers/{userId}/all', 'App\Http\Controllers\Api\FollowController@getAllFollowers');
 
 // Following Routes
-Route::get('following/{userId}/all', 'App\Http\Controllers\FollowController@getAllFollowing');
-Route::get('following/{userId}/topTen', 'App\Http\Controllers\FollowController@getTopTen');
+Route::get('following/{userId}/all', 'App\Http\Controllers\Api\FollowController@getAllFollowing');
+Route::get('following/{userId}/topTen', 'App\Http\Controllers\Api\FollowController@getTopTen');
 
 // Group Routes
-Route::post('groups/{user}/add', 'App\Http\Controllers\GroupController@add');
-Route::get('groups/lfg', 'App\Http\Controllers\GroupController@getGroupDataById');
-Route::get('groups/mygroups/{userId}', 'App\Http\Controllers\GroupController@getMyGroups');
-Route::put('groups/join', 'App\Http\Controllers\GroupController@joinGroup');
-Route::put('groups/leave', 'App\Http\Controllers\GroupController@leaveGroup');
+Route::get('poop', 'App\Http\Controllers\Api\GroupController@poop');
+Route::prefix('groups')->group(function () {
+    Route::post('add/{userId}', 'App\Http\Controllers\Api\GroupController@add');
+    Route::get('lfg', 'App\Http\Controllers\Api\GroupController@getGroupDataById');
+    Route::get('mygroups/{userId}', 'App\Http\Controllers\Api\GroupController@getMyGroups');
+    Route::put('join', 'App\Http\Controllers\Api\GroupController@joinGroup');
+    Route::put('leave', 'App\Http\Controllers\Api\GroupController@leaveGroup');
+});
+
 
 Route::get('users/{userId}/data', 'App\Http\Controllers\UserController@getUserDataById');
 

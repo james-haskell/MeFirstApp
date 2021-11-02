@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <user-timeline
-        :user="{{ $user }}"
-        :is-not="{{ $isNot }}"
+        :follow-route="'{{ route('user.follow', $user) }}'"
         :is-following="{{ $isFollowing }}"
+        :is-not="{{ $isNot }}"
         :unfollow-route="'{{ route('user.unfollow', $user) }}'"
-        :follow-route="'{{ route('user.follow', $user) }}'">
+        :user="{{ $user }}"
+    >
     </user-timeline>
 @endsection

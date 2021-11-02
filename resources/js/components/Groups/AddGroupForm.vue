@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         Add Group
-        <form :action="'/api/groups/' + this.userid + '/add'" method="POST">
+        <form :action="'/api/groups/add/' + this.userid" method="POST">
             <div class="d-flex flex-column">
                 <input 
                     type="text"
