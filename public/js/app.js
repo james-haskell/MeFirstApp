@@ -2366,10 +2366,16 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/groups/mygroups/' + this.userid).then(function (res) {
         _this4.myGroups = res.data;
+        console.log(_this4.myGroups);
       })["catch"](function (err) {
         _this4.errors = true;
         console.log(err);
       });
+    },
+    showAddForm: function showAddForm() {
+      if (this.userid) {
+        window.location = '/groups/add?id=' + this.userid;
+      }
     },
     submit: function submit() {
       if (this.groupId === '') {
@@ -2405,7 +2411,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['followRoute', 'isFollowing', 'isNot', 'unfollowRoute', 'user'],
+  data: function data() {
+    return {};
+  },
+  methods: {}
+});
 
 /***/ }),
 
@@ -38613,9 +38639,7 @@ var render = function() {
     _vm._v("\n    Add Group\n    "),
     _c(
       "form",
-      {
-        attrs: { action: "/api/groups/" + this.userid + "/add", method: "POST" }
-      },
+      { attrs: { action: "/api/groups/add/" + this.userid, method: "POST" } },
       [_vm._m(0)]
     )
   ])
@@ -38962,7 +38986,8 @@ var render = function() {
                   "div",
                   {
                     key: follow.id,
-                    staticClass: "d-flex flex-column align-items-center"
+                    staticClass:
+                      "d-flex flex-column justify-content-center align-items-center"
                   },
                   [
                     _c("a", { attrs: { href: "/users/" + follow.id } }, [
@@ -38998,9 +39023,7 @@ var render = function() {
       _vm._v(" "),
       _c("h3", [_vm._v("My Groups")]),
       _vm._v(" "),
-      _c("a", { attrs: { href: "/groups/" + this.userid + "/add" } }, [
-        _vm._v("Add Group")
-      ]),
+      _c("button", { on: { click: _vm.showAddForm } }, [_vm._v("Add Group")]),
       _vm._v(" "),
       _c(
         "form",
@@ -39096,16 +39119,45 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _vm.isNot
+      ? _c("div", [
+          _vm._v("I am not this user.\n        "),
+          _vm.isFollowing
+            ? _c("div", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { href: _vm.unfollowRoute }
+                  },
+                  [_vm._v("Unfollow")]
+                )
+              ])
+            : _c("div", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { href: _vm.followRoute }
+                  },
+                  [_vm._v("Follow")]
+                )
+              ])
+        ])
+      : _c("div", [
+          _c("div", [
+            _c("img", {
+              staticClass: "ml-2",
+              staticStyle: { height: "55px", width: "55px" },
+              attrs: { src: "" }
+            }),
+            _vm._v("\n            " + _vm._s(_vm.user.name) + "\n        ")
+          ])
+        ])
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("p", [_vm._v("POOOOP")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

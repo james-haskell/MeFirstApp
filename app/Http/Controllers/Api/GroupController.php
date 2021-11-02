@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Providers\GroupServiceProvider;
 use App\Providers\UserServiceProvider;
 use App\Models\MyGroup;
@@ -10,7 +11,8 @@ use App\Models\User;
 
 class GroupController extends Controller
 {
-    public function add(Request $request, User $user) {
+    public function add(Request $request, $userId) {
+        $user = User::find($userId);
         $response = MyGroup::add($request, $user);
         
         if ($response) {
@@ -37,19 +39,5 @@ class GroupController extends Controller
         $userId = $request->userId;
         $groupId = $request->groupId;
         return GroupServiceProvider::leaveGroup($groupId, $userId);
-    }
-
-    public function showAddForm($userId) {
-        return view('add-group', [
-            'userId' => $userId
-        ]);
-    }
-
-    public function showGroupPage(Request $request, $groupId) {
-        $userId = UserServiceProvider::getUserId($request);
-        return view('groups.group', [
-            'groupId' => $groupId,
-            'userId' => $userId
-        ]);
     }
 }

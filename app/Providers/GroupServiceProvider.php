@@ -43,7 +43,9 @@ class GroupServiceProvider extends ServiceProvider
     }
 
     public static function getMyGroups($userId) {
-        $allGroups = MyGroup::all();
+        $myGroups = MyGroup::whereIn('member_ids', $userId)->get();
+        dd($myGroups);
+        // $allGroups = MyGroup::all();
         $myGroupIds = [];
         for($i=0;$i<count($allGroups); $i++) {
             $memberIds = MyGroup::getGroupMemberIds($allGroups[$i]->id);
